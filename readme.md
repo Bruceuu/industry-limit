@@ -23,12 +23,13 @@ Works with new and existing saves.
 ## New industry spawning
 The game's automatic founding is switched off and Industry Limit decides:
   - **When**: At random intervals, on average about once per game year (at least ~5 months apart, at most 3 years).
-  - **What**: Only types that are not blocked, and are below the chosen limit.
+  - **What**: Only types that are not blocked, and are below the chosen limit. And types that are involved in any town's need. So no spawning textile factories before towns require clothes
   - **Where**: Completely random location
   - If nothing qualifies, no industry is founded.
 
 ## Recommended
 For building and deleting industries manually: [Industry Freedom](https://mod.io/g/transportfever3/m/industry-freedom#description)
+
 For upgrading industries to allow them to be more powerful: [Industry Upgrades](https://mod.io/g/transportfever3/m/industry-upgrades#description)
 
 ## Known limitations
