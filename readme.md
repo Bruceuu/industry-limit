@@ -28,8 +28,8 @@ The game's automatic founding is switched off and Industry Limit decides:
   - If nothing qualifies, no industry is founded.
 
 ## Recommended
-For building and deleting industries manually: (Industry Freedom)[https://mod.io/g/transportfever3/m/industry-freedom#description]
-For upgrading industries to allow them to be more powerful: (Industry Upgrades)[https://mod.io/g/transportfever3/m/industry-upgrades#description]
+For building and deleting industries manually: [Industry Freedom](https://mod.io/g/transportfever3/m/industry-freedom#description)
+For upgrading industries to allow them to be more powerful: [Industry Upgrades](https://mod.io/g/transportfever3/m/industry-upgrades#description)
 
 ## Known limitations
 
