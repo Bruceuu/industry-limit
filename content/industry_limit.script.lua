@@ -22,7 +22,6 @@ local function subscribe(state)
     state:subscribeToEvent(il.connectEvent)
 end
 
--- Custom spawner is optional too (see industry_limit_spawner.lua).
 local okSp, sp = pcall(ug_require, "industry_limit::/industry_limit_spawner.lua")
 if not okSp then
     debugPrint("[industry_limit] spawner module unavailable: " .. tostring(sp))
@@ -32,6 +31,7 @@ end
 local SUB_VERSION = 1
 
 local function update(_, state, dt)
+    if dt <= 0 then return end
     local cur = state:get()
     if not state:hasEventSubscriptions() then
         subscribe(state)
@@ -43,13 +43,13 @@ local function update(_, state, dt)
         cur.subVersion = SUB_VERSION
         state:set(cur)
     end
-    if dt <= 0 then return end
+
     local gameTime = api.engine.getComponent(api.engine.util.getWorld(), api.type.ComponentType.GAME_TIME)
     if not gameTime or gameTime.updateCount % SCAN_INTERVAL_TICKS ~= 0 then return end
 
     local s = ensure(state:get())
     local T = api.type.ComponentType
-    local seen, toRemove, counts, newOnes = {}, {}, {}, {}
+    local seen, counts, newOnes = {}, {}, {}
     api.engine.forEachEntityWithComponent(function(entity)
         local key = tostring(entity)
         seen[key] = true
@@ -61,10 +61,6 @@ local function update(_, state, dt)
         newOnes[#newOnes + 1] = { entity = entity, industry = industry, tag = tag }
         -- A new industry: remove it if its type is blocked (player-owned ones are left alone).
         if il.isPlayerOwned(entity, industry) then return end
-        if tag and s.blocked[tag] then
-            toRemove[#toRemove + 1] = entity
-            log("blocked type '" .. tag .. "' spawned (entity " .. key .. "), removing")
-        end
     end, T.INDUSTRY)
     -- Only write the state when the industry set or counts changed.
     local function sameKeys(a, b)
@@ -92,7 +88,6 @@ local function update(_, state, dt)
         state:set(s)
     end
     local result = nil
-    if #toRemove > 0 then result = { industriesToRemove = toRemove } end
     if connectEntity then
         result = result or {}
         result.connectEntity = connectEntity
@@ -100,19 +95,9 @@ local function update(_, state, dt)
     -- Optional custom spawner / bankruptcy (mod params, off by default). Errors here must not
     -- break blocking/deleting, hence pcall.
     if sp then
-        local okOpt, spawnerOn = pcall(sp.params)
-        if okOpt then
-            local okRun, err = pcall(function()
-                if spawnerOn then
-                    if sp.schedule(state, gameTime) then
-                        result = result or {}
-                        result.spawnDue = true
-                    end
-                else
-                    sp.clearSchedule(state)
-                end
-            end)
-            if not okRun then log("custom spawner error: " .. tostring(err)) end
+		if sp.schedule(state, gameTime) then
+			result = result or {}
+			result.spawnDue = true
         end
     end
     return result
@@ -120,11 +105,6 @@ end
 
 local function postUpdate(_, state, _, result)
     if type(result) ~= "table" then return end
-    if result.industriesToRemove and #result.industriesToRemove > 0 then
-        il.removeIndustries(result.industriesToRemove, function(success)
-            if not success then log("removal of industries failed (will be retried for bankrupt ones)") end
-        end)
-    end
     if result.journalTags and #result.journalTags > 0 and sp then sp.journal(result.journalTags) end
     if result.connectEntity and sp then sp.connect(state, result.connectEntity, "custom-spawn") end
     if result.spawnDue and sp then
@@ -135,8 +115,6 @@ local function postUpdate(_, state, _, result)
 end
 
 local function handleEvent(_, state, _, id, name, param)
-	log("got event" .. name)
-	debugPrint(param)
     if id ~= il.id then
         if rec then rec.event(id, name, param) end
         return

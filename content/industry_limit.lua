@@ -174,15 +174,4 @@ function il.listSpawnable()
     return list
 end
 
--- Remove industry entities (and their street connections) with the vanilla helper.
-function il.removeIndustries(industryEntities, followupFn)
-    local ok, util = pcall(ug_require, "::/gui/main/industry_util.tl")
-    if not ok or type(util) ~= "table" or type(util.removeIndustries) ~= "function" then
-        debugPrint("[industry_limit] industry_util.removeIndustries unavailable: " .. tostring(util))
-        return false
-    end
-    util.removeIndustries(industryEntities, followupFn, true)
-    return true
-end
-
 return il
