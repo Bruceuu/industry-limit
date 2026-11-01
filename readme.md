@@ -38,4 +38,6 @@ For upgrading industries to allow them to be more powerful: [Industry Upgrades](
 - Text is English only for now (translations welcome).
 
 ## Credits
-Credit to Geoffreyc for figuring out how to spawn industries and make a UI ingame and for making it possible for this mod to exist.
+Credit to Geoffreyc for the code of spawning industries and making a UI ingame, making it possible for this mod to exist.
+
+The mod is open source at https://github.com/Bruceuu/industry-limit
