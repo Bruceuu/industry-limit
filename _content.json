@@ -1,0 +1,15 @@
+{
+    "archives":  null,
+    "files":  [
+                  "industry_limit.gs.lua",
+                  "industry_limit.lua",
+                  "industry_limit.script.lua",
+                  "industry_limit_spawner.lua",
+                  "industry_eow.res.lua",
+                  "industry_eow.script.lua",
+                  "industry_menu.css.lua",
+                  "industry_menu.res.lua",
+                  "industry_menu.script.lua",
+                  "mod.script.lua"
+              ]
+}

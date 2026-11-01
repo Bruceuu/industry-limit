@@ -1,0 +1,12 @@
+{
+    "modId": "industry_limit",
+    "revision": 1,
+    "dependencies": null,
+    "incompatibilities": null,
+    "options": null,
+    "preRunScript": { "fileName": "industry_limit::/mod.script@preRunFn" },
+    "runScript": { "fileName": "" },
+    "postRunScript": { "fileName": "" },
+    "severityAdd": "None",
+    "severityRemove": "Warning"
+}

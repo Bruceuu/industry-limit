@@ -1,0 +1,4 @@
+Industry Limit - changelog
+
+1.0 (first public release)
+- Industry Limit window: Set limits on industry types, block/unblock them from spawning.
