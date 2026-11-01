@@ -23,7 +23,7 @@ local function subscribe(state)
 end
 
 -- Custom spawner is optional too (see industry_limit_spawner.lua).
-local okSp, sp = pcall(ug_require, "industry_limit_1::/industry_limit_spawner.lua")
+local okSp, sp = pcall(ug_require, "industry_limit::/industry_limit_spawner.lua")
 if not okSp then
     debugPrint("[industry_limit] spawner module unavailable: " .. tostring(sp))
     sp = nil
