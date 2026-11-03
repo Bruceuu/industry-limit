@@ -4,7 +4,6 @@ il.id = "industry_limit"
 il.script = il.id .. "::/industry_limit.gs"
 il.setBlockedEvent = "IndustryLimitSetBlocked"
 il.setLimitEvent = "IndustryLimitSetLimit"
-il.deleteEvent = "IndustryLimitDelete"
 il.clearBlockedEvent = "IndustryLimitClearBlocked"
 il.connectEvent = "IndustryLimitConnect"
 

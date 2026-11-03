@@ -1,4 +1,7 @@
 Industry Limit - changelog
 
+1.1
+- Removed broken buttons that did nothing and are not planned
+
 1.0 (first public release)
 - Industry Limit window: Set limits on industry types, block/unblock them from spawning.

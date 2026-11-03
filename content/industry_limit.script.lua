@@ -1,4 +1,4 @@
--- game script: enforces the block list and handles delete requests.
+-- game script: enforces the block list
 local il = ug_require "industry_limit::/industry_limit.lua"
 
 local SCAN_INTERVAL_TICKS = 200
@@ -17,7 +17,6 @@ end
 local function subscribe(state)
     state:subscribeToEvent(il.setBlockedEvent)
 	state:subscribeToEvent(il.setLimitEvent)
-    state:subscribeToEvent(il.deleteEvent)
     state:subscribeToEvent(il.clearBlockedEvent)
     state:subscribeToEvent(il.connectEvent)
 end
@@ -142,14 +141,6 @@ local function handleEvent(_, state, _, id, name, param)
             s.blocked[param.tag] = param.blocked == true
             state:set(s)
             log((param.blocked and "blocking " or "allowing ") .. param.tag)
-        end
-    elseif name == il.deleteEvent then
-        local entity = param.entity
-        if type(entity) == "number" and api.engine.getComponent(entity, api.type.ComponentType.INDUSTRY) then
-            log("deleting industry " .. tostring(entity))
-            il.removeIndustries({ entity }, function(success)
-                if not success then log("deletion failed for " .. tostring(entity)) end
-            end)
         end
     end
 end
