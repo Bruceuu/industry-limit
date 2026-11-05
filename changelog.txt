@@ -1,5 +1,8 @@
 Industry Limit - changelog
 
+1.2
+- Fix crsh in map editor mode when selecting industry
+
 1.1
 - Removed broken buttons that did nothing and are not planned
 

@@ -50,7 +50,7 @@ function data()
             if d.industry then
                 local st = il.readState()
                 d.blocked = d.tag ~= nil and (st.blocked or {})[d.tag] == true
-				d.limit = d.tag ~= nil and (st.limit[d.tag] or "unlimited") or nil
+				d.limit = d.tag ~= nil and st.limit and (st.limit[d.tag] or "unlimited") or nil
                 local r = (st.ours or {})[tostring(d.entity)]
                 d.deadline = r and not r.removing and r.deadline or nil
                 local lc = st.lastConnect
